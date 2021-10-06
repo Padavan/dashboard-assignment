@@ -1,0 +1,11 @@
+.container {
+  margin: 1rem;
+  border: 1px solid black;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.sectionLink {
+  margin: 0 0.5rem;
+}

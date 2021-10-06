@@ -1,0 +1,37 @@
+{
+  "name": "dashboard-assignment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=development webpack-dev-server --env dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Padavan/dashboard-assignment.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Padavan/dashboard-assignment/issues"
+  },
+  "homepage": "https://github.com/Padavan/dashboard-assignment#readme",
+  "dependencies": {
+    "@babel/core": "^7.15.5",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^6.3.0",
+    "html-webpack-plugin": "^5.3.2",
+    "mini-css-extract-plugin": "^2.4.1",
+    "postcss-loader": "^6.1.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "style-loader": "^3.3.0",
+    "webpack": "^5.57.1",
+    "webpack-cli": "^4.8.0"
+  },
+  "devDependencies": {
+    "@babel/preset-react": "^7.14.5",
+    "cross-env": "^7.0.3",
+    "webpack-dev-server": "^4.3.1"
+  }
+}
