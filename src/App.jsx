@@ -1,7 +1,6 @@
 import React from 'react';
 import "./style.css";
 import styles from './App.module.css';
-// import { Nav } from './components/Nav';
 import { Header } from './components/Header';
 import { Sections } from './components/Sections';
 import { Page } from './components/Page';

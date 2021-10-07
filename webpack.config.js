@@ -4,14 +4,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = function(env, argv) {
-  console.log("env", env);
   const isEnvDevelopment = env.dev;
-  console.log("isEnvDevelopment", isEnvDevelopment);
+  const isEnvProduction = env.prod;
 
-  // const isEnvProduction = webpackEnv === 'production';
   return {
-    mode: 'development',
-    devtool: 'eval-cheap-module-source-map',
+    mode: isEnvDevelopment ? 'development' : isEnvProduction && 'production',
+    devtool: isEnvDevelopment ? 'eval-cheap-module-source-map' : isEnvProduction && false,
     entry: {
       src: path.resolve(__dirname, 'src'),
     },
@@ -22,17 +20,16 @@ module.exports = function(env, argv) {
     },
     resolve: {
       extensions: [".cjs", ".mjs", '.js', '.jsx', '.css'],
-      // modules: [
-      //   path.join(__dirname, 'src'),
-      //   'node_modules'
-      // ]
+      modules: [
+        path.join(__dirname, 'src'),
+        'node_modules'
+      ]
     },
     optimization: {
       nodeEnv: 'development'
     },
     devServer: {
       historyApiFallback: true,
-      hot: true,
       compress: true,
       https: false,
     },
@@ -42,15 +39,16 @@ module.exports = function(env, argv) {
         {
           test: /\.(js|jsx)$/,
           exclude: ['/node_modules/'],
-          use: 'babel-loader',
+          use: { loader: 'babel-loader'},
         },
         {
           test: /\.css$/,
           exclude: /\.module\.css$/,
           use: [
             isEnvDevelopment && 'style-loader',
+            isEnvProduction && MiniCssExtractPlugin.loader,
             "css-loader"
-          ]
+          ].filter(Boolean),
         },
         {
           test: /\.module\.css$/,
@@ -62,14 +60,14 @@ module.exports = function(env, argv) {
               loader: require.resolve('css-loader'),
               options: {
                 importLoaders: 1,
-                modules: true
+                modules: {
+                  localIdentName: isEnvProduction ? '[hash:base64]' : '[path][name]__[local]',
+                },
+
               },
             },
             {
               loader: require.resolve('postcss-loader'),
-              options: {
-                sourceMap: true,
-              }
             }
           ]
         },
@@ -82,8 +80,8 @@ module.exports = function(env, argv) {
         inject: 'body',
         filename: 'index.html'
       }),
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.EnvironmentPlugin({ NODE_ENV: 'development' })
-    ]
+      isEnvDevelopment && new webpack.HotModuleReplacementPlugin(),
+      isEnvProduction && new MiniCssExtractPlugin(),
+    ].filter(Boolean),
   }
 };

@@ -1,0 +1,49 @@
+.grid {
+  display: grid;
+  grid-template-rows: fit-content(100%);
+  align-content: stretch;
+  justify-content: stretch;
+  align-items: center;
+  justify-items: stretch;
+  height: 100%;
+  width: calc(100% - 2px);
+  max-height: 100%;
+  gap: 0;
+  overflow: auto;
+  border: 1px solid black;
+}
+
+.split {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas:
+      "header header header"
+      "cell cell cell";
+}
+
+.fullscreen {
+  grid-template-columns: repeat(6, minmax(150px, 1fr));
+  grid-template-areas:
+      "header header header header header header"
+      "cell cell cell cell cell cell";
+}
+
+.cell {
+  border: 1px solid black;
+  padding: 0.5rem;
+  place-self: stretch;
+}
+
+.header {
+  border: 1px solid black;
+  grid-area: header;
+}
+
+.header h3 {
+  margin: auto;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.split .additionalCells {
+  display: none;
+}

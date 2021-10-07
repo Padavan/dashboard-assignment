@@ -1,0 +1,27 @@
+.container {
+  border: 1px solid black;
+  flex: 1;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+  height: 100%;
+  overflow: hidden;
+  min-width: 2rem;
+}
+
+.collapsed {
+  flex: 0;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+}
+
+.vertical {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  margin: 0;
+  padding: 0.5rem;
+  /*transform: rotate(270deg);*/
+}

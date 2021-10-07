@@ -1,37 +1,49 @@
 import React, { useState } from 'react';
 import styles from './Page.module.css';
 import { Content } from '../Content';
+import { TableContainer } from '../TableContainer';
 
-const views = {
-  'collapsed': 0,
-  'split': 1,
-  'fullscreen': 2
-};
-
+const views = ['collapsed', 'split', 'fullscreen'];
 
 export const Page = () => {
   const [view, setView] = useState(0);
 
+  const isMoveRightPossible = view < (views.length - 1);
+  const isMoveLeftPossible = view > 0;
+
   const moveLeft = () => {
-    console.log('moveLeft');
+    if (!isMoveLeftPossible) {
+      return;
+    }
+    const newView = view - 1;
+    setView(newView);
   }
 
   const moveRight = () => {
-    console.log('moveRight');
+    if (!isMoveRightPossible) {
+      return;
+    }
+    const newView = view + 1;
+    setView(newView);
   }
 
   return (
     <div className={styles.container}>
-      <div />
+      <TableContainer view={views[view]} />
       <div className={styles.buttonControls}>
-        <button onClick={() => changeView(-1)}>
-          Left
-        </button>
-        <button onClick={moveRight}>
-          Right
-        </button>
+        {
+          isMoveLeftPossible &&
+          <button onClick={moveLeft}>
+            ◀
+          </button>
+        }
+        {
+          isMoveRightPossible && <button onClick={moveRight}>
+            ▶
+          </button>
+        }
       </div>
-      <Content />
+      <Content view={views[view]}/>
     </div>
   );
 }
